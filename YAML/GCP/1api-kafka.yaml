@@ -1,0 +1,41 @@
+#oficial
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploy-kafka-server
+  name: deploy-kafka-server
+  namespace: kafka #namespace
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-kafka-server
+  template:
+    metadata:
+      labels:
+        app: deploy-kafka-server
+    spec:
+      containers:
+        - image: javier644alfaro/server_producer   #aqui hay q tener cuidado ojo
+          name: kafka-server-kubernetes
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: svc-kafka-server
+  name: svc-kafka-server
+  namespace: kafka #namespace
+spec:
+  type: LoadBalancer
+  ports:
+    - name: svc-kafka-server
+      port: 3000
+      protocol: TCP
+  selector:
+    app: deploy-kafka-server
+#aplicar el service para acceder a my-cluster-kafka-bootstrap CLUSTER_IP

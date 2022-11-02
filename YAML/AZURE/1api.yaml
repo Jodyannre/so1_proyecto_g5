@@ -1,0 +1,41 @@
+#oficial
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: go-api-deploy
+  name: go-api-deploy
+  namespace: goapi #namespace
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-api-deploy
+  template:
+    metadata:
+      labels:
+        app: go-api-deploy
+    spec:
+      containers:
+        - image: jodyannre/goapi   #aqui hay q tener cuidado ojo
+          name: go-api
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: svc-goapi
+  name: svc-goapi
+  namespace: goapi #namespace
+spec:
+  type: LoadBalancer
+  ports:
+    - name: svc-goapi
+      port: 4000
+      protocol: TCP
+  selector:
+    app: go-api-deploy
+#aplicar el service para acceder a my-cluster-kafka-bootstrap CLUSTER_IP

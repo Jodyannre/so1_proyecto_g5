@@ -1,0 +1,64 @@
+#joel
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-deployment
+  namespace: kafka #namespace
+  labels:
+    app: grpc-deployment
+spec:
+  selector:
+    matchLabels:
+      app: grpc-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grpc-deployment
+    spec:
+      hostname: grpc-pod-host
+      containers:
+        - name: grpc-client
+          image: jodyannre/grpc-client-69 #jodyannre/grpc-client3 version estable   // final jodyannre/grpc-client-69
+          env:
+          - name: HOST_GRPC
+            value: grpc-pod-host
+#
+          - name: REDIS_HOST
+            value: baseredisdb2.redis.cache.windows.net
+#
+          - name: REDIS_PORT
+            value: "6379"
+#
+          - name: REDIS_PASS
+            value: Z4OB967BvclEP8d11anmobzkHx92EXSEWAzCaC0nUiY=
+
+          ports:
+            - containerPort: 8000
+            #-------------------------------------
+        - name: kafka-server-kubernetes2
+          image: javier644alfaro/worker5   #aqui hay q tener cuidado ojo
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4010
+        #- name: grpc-server
+        #  image: jodyannre/grpc-server3
+        #  ports:
+        #    - containerPort: 50051        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: grpc-deployment #nombre del pod
+  name: svc-grpc
+  namespace: kafka #namespace
+spec:
+  type: ClusterIP
+  selector:
+    app: grpc-deployment
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP

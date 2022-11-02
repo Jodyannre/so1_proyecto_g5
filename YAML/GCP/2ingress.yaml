@@ -1,0 +1,22 @@
+#svc-kafka-server
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: kafka #namespace
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - host: "34.148.149.26.nip.io"
+      http:
+        paths:
+        - path: "/input"
+          pathType: Prefix
+          backend:
+            service:
+              name: svc-kafka-server
+              port:
+                number: 3000
