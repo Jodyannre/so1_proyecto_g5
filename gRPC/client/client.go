@@ -1,22 +1,22 @@
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"strconv"
+	"context"       //Para la obtención de contextos
+	"encoding/json" //Para el manejo de objetos JSON
+	"fmt"           //Para impresión de datos
+	"strconv"       //Para la conversión de datos string
 
 	//"io/ioutil"
-	"log"
-	"net/http"
+	"log"      //Para la obtención de logs
+	"net/http" //Para el manejo de rutas http
 
-	"os"
-	"time"
+	"os"   //Para utilizar funciones del SO
+	"time" //Para la creación de objetos time
 
 	pb "client/proto-grpc"
 
-	"github.com/gorilla/mux"
-	"google.golang.org/grpc"
+	"github.com/gorilla/mux" //Para el manejo de rutas http
+	"google.golang.org/grpc" //Para el manejo de objetos GRPC
 )
 
 type Informacion struct {

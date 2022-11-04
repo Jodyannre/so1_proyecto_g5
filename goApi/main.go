@@ -9,11 +9,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/go-redis/redis/v9"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"github.com/go-redis/redis/v9"              //Libreria para manejar redis
+	"github.com/gorilla/mux"                    //Libreria para la gestión del servidor web
+	"github.com/joho/godotenv"                  //Librearia para la gestión de variables de entorno
+	"go.mongodb.org/mongo-driver/mongo"         //Libreria para manejar mongo
+	"go.mongodb.org/mongo-driver/mongo/options" //Libreria para manejar mongo
 )
 
 func main() {
