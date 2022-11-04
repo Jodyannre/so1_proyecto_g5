@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "confproto";
+
+package confproto;
+
+service getInfo {
+    rpc returnInfo (requestInfo) returns (replyInfo){}
+}
+
+message requestInfo {
+    string team1 = 1;
+    string team2 = 2;
+    string score = 3;
+    string phase = 4;
+}
+
+message replyInfo {
+    string info = 1;
+}
+
+//Para compilar
+/* Instalar
+protoc --go_out=plugins=grpc:. config.proto
+protoc --go_out=plugins=grpc:. config.proto
+*/
+//protoc --go_out=plugins=grpc:. config.proto
